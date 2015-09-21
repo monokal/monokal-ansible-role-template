@@ -1,0 +1,42 @@
+---
+
+# Name:          main.yml
+# Description:   Ansible role to do stuff.
+# Maintainer:    Daniel Middleton - d@monokal.io
+# Documentation: See README.md
+
+# UFW.
+
+- name: ufw_allow
+  ufw:
+    rule:      allow
+    port:      "{{ item.port }}"
+    proto:     "{{ item.proto }}"
+    direction: "{{ item.direction }}"
+  with_items:
+    # Inbound
+    - { port: '1234', proto: 'tcp', direction: 'in'}  # Port description.
+    # Outbound
+    - { port: '1234', proto: 'tcp', direction: 'out'} # Port description.
+
+# Packages.
+
+- name: install_packages
+  apt:
+    name: "{{ item }}"
+  with_items:
+    - "package-name"
+  register: install_packages
+
+# Configure something.
+
+- name: amend_something_config
+  when: install_packages|success
+  template:
+    src:   something.j2
+    dest:  /etc/something/something.cfg
+    owner: root
+    group: root
+    mode:  "u=rw,g=r,o=r"
+  notify:
+    - restart_something

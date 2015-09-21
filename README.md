@@ -12,4 +12,7 @@ key2: value2 # Description of variable.
 * [monokal-ansible-role-another](http://#)
 
 ### Notes
- - I'm a note!
+ - Reading this from terminal? Try this for GitHub-style markdown:
+```bash
+sudo pip install grip; grip
+```
