@@ -1,0 +1,1 @@
+# monokal-ansible-role-template
